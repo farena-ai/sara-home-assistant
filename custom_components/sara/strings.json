@@ -1,0 +1,114 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Sara",
+        "description": "The address of your Sara server, as you open it in a browser (for example {example_lan} or {example_domain}).",
+        "data": {
+          "url": "Sara address"
+        },
+        "data_description": {
+          "url": "Home Assistant asks Sara for a sign-in code; you approve it in Sara."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Sign in to Sara again",
+        "description": "Home Assistant isn't signed in to Sara at {url} any more (it was signed out, or the device token expired). Submit to get a new code to approve in Sara."
+      },
+      "disclosure": {
+        "title": "Sara's AI disclosure",
+        "description": "{disclosure}\n\nSara shows this once before she answers. Accept it to continue.",
+        "data": {
+          "accept": "I understand and accept"
+        }
+      }
+    },
+    "progress": {
+      "wait_for_approval": "In Sara, approve the sign-in for **Home Assistant**:\n\n1. Open {approve_in}, or {verify_url} in a browser where you're signed in to Sara.\n2. Type this code: **{code}**\n3. Confirm it's you (owner token, two-step code or passkey) and press Approve.\n\nThis page continues by itself. The code lasts 10 minutes."
+    },
+    "error": {
+      "invalid_url": "That doesn't look like an address. Use something like {example_lan}.",
+      "cannot_connect": "Couldn't reach Sara at that address. Is it right, and is Sara running?",
+      "must_accept": "Accept the disclosure to use Sara from Home Assistant."
+    },
+    "abort": {
+      "already_configured": "This Sara server is already set up.",
+      "denied": "The sign-in was declined in Sara.",
+      "expired": "The code expired before it was approved. Try again.",
+      "cannot_connect": "Couldn't reach Sara at that address. Is it right, and is Sara running?",
+      "reauth_successful": "Signed in to Sara again."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Sara options",
+        "description": "How Home Assistant talks to Sara.",
+        "data": {
+          "companion": "Companion",
+          "share_context": "Tell her where you're talking from",
+          "one_conversation": "One conversation for everything"
+        },
+        "data_description": {
+          "share_context": "Adds the voice device and its area to what you say (for example \"Kitchen speaker in the Kitchen\").",
+          "one_conversation": "On: everything from Home Assistant goes into a single \"Home Assistant\" conversation in Sara. Off: each Assist conversation gets its own."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "last_reply": {
+        "name": "Last reply"
+      }
+    },
+    "notify": {
+      "note": {
+        "name": "Note"
+      }
+    }
+  },
+  "services": {
+    "send_message": {
+      "name": "Send a message",
+      "description": "Sends a message to Sara and returns her reply.",
+      "fields": {
+        "text": {
+          "name": "Message",
+          "description": "What to say to her."
+        },
+        "conversation_id": {
+          "name": "Conversation",
+          "description": "A Sara conversation id. Empty: her \"Home Assistant\" conversation."
+        },
+        "config_entry_id": {
+          "name": "Sara",
+          "description": "Which Sara (when you have more than one)."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "not_loaded": {
+      "message": "Sara isn't set up or isn't loaded."
+    },
+    "which_entry": {
+      "message": "More than one Sara is set up: choose which one."
+    },
+    "auth": {
+      "message": "Home Assistant isn't signed in to Sara any more. Sign in again from the notification in Settings."
+    },
+    "disclosure": {
+      "message": "Accept Sara's AI disclosure first (in Sara, or by setting up the integration again)."
+    },
+    "cannot_connect": {
+      "message": "Couldn't reach Sara: {error}"
+    },
+    "sara_error": {
+      "message": "Sara: {error}"
+    },
+    "unknown_conversation": {
+      "message": "That conversation wasn't made by Home Assistant. Leave conversation_id out to use her Home Assistant conversation, or use an id this integration returned."
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit Sara verbinden",
+        "description": "Die Adresse deines Sara-Servers, so wie du sie im Browser öffnest (zum Beispiel {example_lan} oder {example_domain}).",
+        "data": {
+          "url": "Sara-Adresse"
+        },
+        "data_description": {
+          "url": "Home Assistant bittet Sara um einen Anmeldecode; du bestätigst ihn in Sara."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Erneut bei Sara anmelden",
+        "description": "Home Assistant ist nicht mehr bei Sara unter {url} angemeldet (es wurde abgemeldet, oder das Geräte-Token ist abgelaufen). Absenden, um einen neuen Code zum Bestätigen in Sara zu erhalten."
+      },
+      "disclosure": {
+        "title": "Saras KI-Hinweis",
+        "description": "{disclosure}\n\nSara zeigt dies einmal, bevor sie antwortet. Akzeptiere es, um fortzufahren.",
+        "data": {
+          "accept": "Ich verstehe und akzeptiere"
+        }
+      }
+    },
+    "progress": {
+      "wait_for_approval": "Bestätige in Sara die Anmeldung von **Home Assistant**:\n\n1. Öffne {approve_in}, oder {verify_url} in einem Browser, in dem du bei Sara angemeldet bist.\n2. Gib diesen Code ein: **{code}**\n3. Bestätige, dass du es bist (Besitzer-Token, Zwei-Schritt-Code oder Passkey), und drücke Bestätigen.\n\nDiese Seite geht von selbst weiter. Der Code gilt 10 Minuten."
+    },
+    "error": {
+      "invalid_url": "Das sieht nicht wie eine Adresse aus. Verwende etwa {example_lan}.",
+      "cannot_connect": "Sara war unter dieser Adresse nicht erreichbar. Stimmt sie, und läuft Sara?",
+      "must_accept": "Akzeptiere den Hinweis, um Sara aus Home Assistant zu nutzen."
+    },
+    "abort": {
+      "already_configured": "Dieser Sara-Server ist bereits eingerichtet.",
+      "denied": "Die Anmeldung wurde in Sara abgelehnt.",
+      "expired": "Der Code ist abgelaufen, bevor er bestätigt wurde. Versuche es erneut.",
+      "cannot_connect": "Sara war unter dieser Adresse nicht erreichbar. Stimmt sie, und läuft Sara?",
+      "reauth_successful": "Wieder bei Sara angemeldet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Sara-Optionen",
+        "description": "Wie Home Assistant mit Sara spricht.",
+        "data": {
+          "companion": "Begleiterin",
+          "share_context": "Ihr sagen, von wo du sprichst",
+          "one_conversation": "Ein Gespräch für alles"
+        },
+        "data_description": {
+          "share_context": "Fügt das Sprachgerät und seinen Bereich zu dem hinzu, was du sagst (zum Beispiel „Küchenlautsprecher in der Küche“).",
+          "one_conversation": "An: alles aus Home Assistant landet in einem einzigen „Home Assistant“-Gespräch in Sara. Aus: jedes Assist-Gespräch bekommt sein eigenes."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "last_reply": {
+        "name": "Letzte Antwort"
+      }
+    },
+    "notify": {
+      "note": {
+        "name": "Notiz"
+      }
+    }
+  },
+  "services": {
+    "send_message": {
+      "name": "Nachricht senden",
+      "description": "Sendet Sara eine Nachricht und gibt ihre Antwort zurück.",
+      "fields": {
+        "text": {
+          "name": "Nachricht",
+          "description": "Was du ihr sagen willst."
+        },
+        "conversation_id": {
+          "name": "Gespräch",
+          "description": "Eine Sara-Gesprächs-ID. Leer: ihr „Home Assistant“-Gespräch."
+        },
+        "config_entry_id": {
+          "name": "Sara",
+          "description": "Welche Sara (wenn du mehrere hast)."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "not_loaded": {
+      "message": "Sara ist nicht eingerichtet oder nicht geladen."
+    },
+    "which_entry": {
+      "message": "Mehr als eine Sara ist eingerichtet: wähle eine aus."
+    },
+    "auth": {
+      "message": "Home Assistant ist nicht mehr bei Sara angemeldet. Melde dich über die Benachrichtigung in den Einstellungen erneut an."
+    },
+    "disclosure": {
+      "message": "Akzeptiere zuerst Saras KI-Hinweis (in Sara oder durch erneutes Einrichten der Integration)."
+    },
+    "cannot_connect": {
+      "message": "Sara nicht erreichbar: {error}"
+    },
+    "sara_error": {
+      "message": "Sara: {error}"
+    },
+    "unknown_conversation": {
+      "message": "Diese Unterhaltung wurde nicht von Home Assistant angelegt. Lass conversation_id weg, um ihre Home-Assistant-Unterhaltung zu nutzen, oder verwende eine ID, die diese Integration zurückgegeben hat."
+    }
+  }
+}

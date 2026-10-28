@@ -1,0 +1,4 @@
+pytest-homeassistant-custom-component
+# The conversation component's own requirements (Home Assistant installs them on demand; tests need them up front):
+hassil
+home-assistant-intents

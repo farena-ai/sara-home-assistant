@@ -1,0 +1,17 @@
+send_message:
+  fields:
+    text:
+      required: true
+      example: "Remind me what's on tomorrow."
+      selector:
+        text:
+          multiline: true
+    conversation_id:
+      required: false
+      selector:
+        text:
+    config_entry_id:
+      required: false
+      selector:
+        config_entry:
+          integration: sara

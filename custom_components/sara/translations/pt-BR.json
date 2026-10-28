@@ -1,0 +1,114 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Conectar à Sara",
+        "description": "O endereço do seu servidor Sara, como você o abre no navegador (por exemplo {example_lan} ou {example_domain}).",
+        "data": {
+          "url": "Endereço da Sara"
+        },
+        "data_description": {
+          "url": "O Home Assistant pede à Sara um código de login; você o aprova na Sara."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Entrar na Sara de novo",
+        "description": "O Home Assistant não está mais conectado à Sara em {url} (foi desconectado, ou o token do dispositivo expirou). Envie para receber um novo código para aprovar na Sara."
+      },
+      "disclosure": {
+        "title": "Aviso de IA da Sara",
+        "description": "{disclosure}\n\nA Sara mostra isto uma vez antes de responder. Aceite para continuar.",
+        "data": {
+          "accept": "Entendo e aceito"
+        }
+      }
+    },
+    "progress": {
+      "wait_for_approval": "Na Sara, aprove o login do **Home Assistant**:\n\n1. Abra {approve_in}, ou {verify_url} em um navegador em que você esteja conectado à Sara.\n2. Digite este código: **{code}**\n3. Confirme que é você (token de proprietário, código de duas etapas ou chave de acesso) e toque em Aprovar.\n\nEsta página continua sozinha. O código vale por 10 minutos."
+    },
+    "error": {
+      "invalid_url": "Isso não parece um endereço. Use algo como {example_lan}.",
+      "cannot_connect": "Não foi possível acessar a Sara nesse endereço. Ele está certo, e a Sara está rodando?",
+      "must_accept": "Aceite o aviso para usar a Sara pelo Home Assistant."
+    },
+    "abort": {
+      "already_configured": "Este servidor Sara já está configurado.",
+      "denied": "O login foi recusado na Sara.",
+      "expired": "O código expirou antes de ser aprovado. Tente de novo.",
+      "cannot_connect": "Não foi possível acessar a Sara nesse endereço. Ele está certo, e a Sara está rodando?",
+      "reauth_successful": "Conectado à Sara de novo."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opções da Sara",
+        "description": "Como o Home Assistant fala com a Sara.",
+        "data": {
+          "companion": "Companheira",
+          "share_context": "Dizer de onde você está falando",
+          "one_conversation": "Uma conversa para tudo"
+        },
+        "data_description": {
+          "share_context": "Acrescenta o dispositivo de voz e a área dele ao que você diz (por exemplo \"Alto-falante da cozinha na Cozinha\").",
+          "one_conversation": "Ligado: tudo do Home Assistant vai para uma única conversa \"Home Assistant\" na Sara. Desligado: cada conversa do Assist tem a sua."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "last_reply": {
+        "name": "Última resposta"
+      }
+    },
+    "notify": {
+      "note": {
+        "name": "Nota"
+      }
+    }
+  },
+  "services": {
+    "send_message": {
+      "name": "Enviar uma mensagem",
+      "description": "Envia uma mensagem à Sara e devolve a resposta dela.",
+      "fields": {
+        "text": {
+          "name": "Mensagem",
+          "description": "O que dizer a ela."
+        },
+        "conversation_id": {
+          "name": "Conversa",
+          "description": "Um id de conversa da Sara. Vazio: a conversa \"Home Assistant\" dela."
+        },
+        "config_entry_id": {
+          "name": "Sara",
+          "description": "Qual Sara (se você tiver mais de uma)."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "not_loaded": {
+      "message": "A Sara não está configurada ou não está carregada."
+    },
+    "which_entry": {
+      "message": "Há mais de uma Sara configurada: escolha qual."
+    },
+    "auth": {
+      "message": "O Home Assistant não está mais conectado à Sara. Entre de novo pela notificação em Configurações."
+    },
+    "disclosure": {
+      "message": "Aceite primeiro o aviso de IA da Sara (na Sara, ou configurando a integração de novo)."
+    },
+    "cannot_connect": {
+      "message": "Não foi possível acessar a Sara: {error}"
+    },
+    "sara_error": {
+      "message": "Sara: {error}"
+    },
+    "unknown_conversation": {
+      "message": "Essa conversa não foi criada pelo Home Assistant. Deixe conversation_id de fora para usar a conversa do Home Assistant dela, ou use um id que esta integração devolveu."
+    }
+  }
+}

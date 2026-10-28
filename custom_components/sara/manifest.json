@@ -1,0 +1,13 @@
+{
+  "domain": "sara",
+  "name": "Sara",
+  "codeowners": ["@farena-ai"],
+  "config_flow": true,
+  "dependencies": ["conversation"],
+  "documentation": "https://github.com/farena-ai/sara/blob/main/docs/HOME_ASSISTANT.md",
+  "integration_type": "service",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/farena-ai/sara/issues",
+  "requirements": [],
+  "version": "0.2.0"
+}
