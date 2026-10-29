@@ -13,6 +13,7 @@ from custom_components.sara.api import (
     SaraError,
     is_local_host,
     normalize_url,
+    spoken,
 )
 
 from .fake_sara import TOKEN, FakeSara
@@ -106,3 +107,12 @@ async def test_errors(fake: FakeSara, sara_url: str) -> None:
             await c.whoami()
         with pytest.raises(SaraConnectionError):
             await SaraClient(s, "http://127.0.0.1:9", TOKEN).whoami()
+
+
+def test_spoken_leaves_markdown_and_emoji_out() -> None:
+    """Phase 72: what a speaker says (voice satellites, Google Home and Nest speakers)."""
+    assert spoken("**Hi** there 👋🏽 ❤️") == "Hi there"
+    assert spoken("# Plan\n- one\n- *two*") == "Plan\none\ntwo"
+    assert spoken("See [the docs](https://example.com/docs) or https://www.example.com/x") == "See the docs or www.example.com"
+    assert "(some code is in the Sara app)" in spoken("Run:\n```sh\nls\n```")
+    assert spoken("2 * 3 = 6 and a_b_c") == "2 * 3 = 6 and a_b_c"

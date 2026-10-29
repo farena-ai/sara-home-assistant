@@ -25,7 +25,7 @@ from homeassistant.helpers.storage import Store
 from homeassistant.helpers.typing import ConfigType
 from homeassistant.util import dt as dt_util
 
-from .api import SCOPE, SaraAuthError, SaraClient, SaraConnectionError, SaraDisclosureError, SaraError, SaraReply
+from .api import SCOPE, SaraAuthError, SaraClient, SaraConnectionError, SaraDisclosureError, SaraError, SaraReply, spoken
 from .const import (
     ATTR_CONFIG_ENTRY_ID,
     ATTR_CONVERSATION_ID,
@@ -94,7 +94,8 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
         if cid and not await _own_conversation(hass, entry, cid):
             raise ServiceValidationError(translation_domain=DOMAIN, translation_key="unknown_conversation")
         reply = await async_ask(hass, entry, call.data[ATTR_TEXT], sara_conversation_id=cid)
-        return {"reply": reply.speech(), "conversation_id": reply.conversation_id}
+        # Phase 72: "spoken" is the same reply ready for a speaker (tts.speak on a Nest, a satellite).
+        return {"reply": reply.speech(), "spoken": spoken(reply.speech()), "conversation_id": reply.conversation_id}
 
     hass.services.async_register(
         DOMAIN,

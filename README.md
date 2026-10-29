@@ -14,7 +14,7 @@ answers in her own time.
 | | |
 |---|---|
 | **Conversation agent** | Choose Sara in **Settings → Voice assistants** for Assist or a voice satellite. Each Assist conversation goes into its own "Home Assistant" conversation in Sara (or one shared conversation, in the options). |
-| **`sara.send_message`** | Ask her something from an automation or script; her reply comes back as the action's response (`reply`, `conversation_id`). A `conversation_id` you pass must be one this integration made (one it returned before); leave it out to use her "Home Assistant" conversation. |
+| **`sara.send_message`** | Ask her something from an automation or script; her reply comes back as the action's response (`reply`, `spoken`, `conversation_id`; `spoken` is the reply without markdown or emoji, ready for a speaker, since 0.3.0). A `conversation_id` you pass must be one this integration made (one it returned before); leave it out to use her "Home Assistant" conversation. |
 | **`notify.sara_note`** | Send her a note ("the front door opened"). She answers in her own time, in her "Home Assistant" conversation, like her other messages (and as a notification on your phone, if that's on). |
 | **Last reply sensor** | `sensor.sara_last_reply`: when she last replied through Home Assistant; her words are in the `text` attribute, which Home Assistant's history (recorder) leaves out. |
 
@@ -28,7 +28,7 @@ Needs Home Assistant 2025.6 or newer and a Sara server Home Assistant can reach.
 
 ### With HACS
 
-1. HACS → ⋮ → **Custom repositories** → add `https://github.com/farena-ai/hacs-sara`, type
+1. HACS → ⋮ → **Custom repositories** → add `https://github.com/farena-ai/sara-home-assistant`, type
    **Integration**.
 2. Find **Sara** in HACS, **Download**, then restart Home Assistant.
 
@@ -82,7 +82,7 @@ the clear.
     entity_id: tts.home_assistant_cloud
   data:
     media_player_entity_id: media_player.hallway
-    message: "{{ sara.reply }}"
+    message: "{{ sara.spoken }}"
 
 # Tell her something happened
 - action: notify.send_message
@@ -92,6 +92,11 @@ the clear.
     title: Front door
     message: "The front door opened at {{ now().strftime('%H:%M') }}."
 ```
+
+Google Home and Nest speakers: Google ended custom voice apps for them, so talk to her through an
+Assist voice satellite and let her answer on a Nest speaker with Google Cast and `tts.speak` (as
+above). Assist answers are spoken without markdown or emoji since 0.3.0. More:
+[docs/VOICE_ASSISTANTS.md](https://github.com/farena-ai/sara/blob/main/docs/VOICE_ASSISTANTS.md).
 
 ## The other direction
 

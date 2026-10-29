@@ -86,6 +86,7 @@ async def test_conversation_errors_and_reauth(hass: HomeAssistant, entry: MockCo
 async def test_send_message_service_and_notify(hass: HomeAssistant, entry: MockConfigEntry, fake: FakeSara) -> None:
     resp = await hass.services.async_call(DOMAIN, "send_message", {"text": "What's for dinner?"}, blocking=True, return_response=True)
     assert resp["reply"] == "Hi! I'm Sara."
+    assert resp["spoken"] == "Hi! I'm Sara."
     cid = resp["conversation_id"]
     assert fake.conversations[cid]["title"] == "Home Assistant"
     resp = await hass.services.async_call(DOMAIN, "send_message", {"text": "again"}, blocking=True, return_response=True)

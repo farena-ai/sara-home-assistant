@@ -13,6 +13,7 @@ from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from . import SaraConfigEntry, async_ask, async_call, async_remember, async_shared
+from .api import spoken
 from .const import CONF_ONE_CONVERSATION, CONF_SHARE_CONTEXT, DOMAIN, VERSION
 
 MAX_TRACKED = 200
@@ -106,5 +107,6 @@ class SaraConversationEntity(conversation.ConversationEntity):
 
         chat_log.async_add_assistant_content_without_tools(conversation.AssistantContent(agent_id=user_input.agent_id, content=speech))
         response = intent.IntentResponse(language=user_input.language)
-        response.async_set_speech(speech)
+        # Phase 72: what a speaker says (voice satellites, Google Home / Nest): no markdown or emoji.
+        response.async_set_speech(spoken(speech))
         return conversation.ConversationResult(response=response, conversation_id=chat_log.conversation_id, continue_conversation=speech.rstrip().endswith("?"))

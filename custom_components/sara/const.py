@@ -6,7 +6,7 @@ import logging
 
 DOMAIN = "sara"
 LOGGER = logging.getLogger(__package__)
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 
 CONF_URL = "url"
 CONF_TOKEN = "token"

@@ -17,6 +17,7 @@ from __future__ import annotations
 import asyncio
 import ipaddress
 import json
+import re
 from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
 from typing import Any
@@ -114,6 +115,29 @@ class SaraReply:
         if self.error and not self.text.strip():
             parts.append(f"(Sara: {self.error})")
         return "\n\n".join(parts)
+
+
+_EMOJI = re.compile(
+    "[\U0001F000-\U0001FAFF\U00002600-\U000027BF\U0001F1E6-\U0001F1FF\uFE0E\uFE0F\u200D\u20E3]"
+)
+
+
+def spoken(text: str) -> str:
+    """Her reply as words a speaker can say (Assist voice satellites, Google Home and Nest speakers).
+
+    Markdown marks, code blocks, link targets and emoji are left out; the words stay.
+    """
+    s = re.sub(r"```[\s\S]*?(```|$)", " (some code is in the Sara app) ", text)
+    s = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", s)
+    s = re.sub(r"https?://([^\s/)]+)\S*", r"\1", s)
+    s = re.sub(r"`([^`]*)`", r"\1", s)
+    s = re.sub(r"(?m)^\s{0,3}#{1,6}\s+", "", s)
+    s = re.sub(r"(?m)^\s*[-*+•]\s+", "", s)
+    s = re.sub(r"(\*\*|__|~~)(.+?)\1", r"\2", s)
+    s = re.sub(r"(?<![\w*])\*(?!\s)([^*\n]+?)\*(?!\w)", r"\1", s)
+    s = _EMOJI.sub("", s)
+    s = re.sub(r"[ \t]{2,}", " ", s)
+    return re.sub(r"\n{3,}", "\n\n", s).strip()
 
 
 async def sse_events(content: aiohttp.StreamReader) -> AsyncIterator[dict[str, Any]]:
